@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.Write("Itemnumber: ");
+        int numItems = int.Parse(Console.ReadLine());
+
+        Dictionary<string, List<string>> itemDict = new Dictionary<string, List<string>>();
+
+        for (int i = 0; i < numItems; i++)
+        {
+            Console.Write("ItemName {i + 1}: ");
+            string itemName = Console.ReadLine();
+
+            Console.Write("ItemType \"{itemName}\": ");
+            string itemType = Console.ReadLine();
+
+            if (!itemDict.ContainsKey(itemType))
+            {
+                itemDict[itemType] = new List<string>();
+            }
+
+            itemDict[itemType].Add(itemName);
+        }
+
+        while (true)
+        {
+            Console.Write("Type to search Item (Type End to Out): ");
+            string mode = Console.ReadLine();
+
+            if (mode == "End")
+            {
+                break;
+            }
+
+            if (mode == "ShowAll")
+            {
+                foreach (var kvp in itemDict)
+                {
+                    foreach (string itemName in kvp.Value)
+                    {
+                        Console.WriteLine($"{itemName} ({kvp.Key})");
+                    }
+                }
+            }
+            else if (itemDict.ContainsKey(mode))
+            {
+                foreach (string itemName in itemDict[mode])
+                {
+                    Console.WriteLine(itemName);
+                }
+            }
+        }
+    }
+}
